@@ -1,0 +1,14 @@
+services:
+  cxtrauma-logs:
+    build: .
+    container_name: cxtrauma-logs
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      TZ: America/Santiago
+    ports:
+      - "127.0.0.1:8001:8000"   # solo local; exponer vía proxy inverso si hace falta
+    volumes:
+      - /var/log/apache2:/logs:ro
+      - ./data:/data
+      - ./secrets/service-account.json:/secrets/service-account.json:ro
